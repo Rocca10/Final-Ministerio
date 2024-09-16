@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<!--
+  Astral by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+      <title>Ministerio de Seguridad</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+  </head>
+  <body class="is-preload">
+
+    <!-- Wrapper-->
+    <div id="wrapper">
+
+      <!-- Nav -->
+      <nav id="nav">
+        <a href="#" class="icon solid fa-home"><span>Personal</span></a>
+        <a href="#food" class="icon solid fa-drumstick-bite"><span>Preparar</span></a>
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+
+        <!-- Personal -->
+        <article id="home" class="panel intro">
+          <header>
+            <h1 th:text=${usuario.nombre} />
+            <p>Investigador</p>
+            <br/>
+            <p><a class="button" href="/logout">Logout</a></p>
+          </header>
+          <div class="jumplink pic">
+            <img src="images/cocinero.png" alt="" />
+          </div>
+        </article>
+
+        <!-- Preparaciones -->
+        <article id="food" class="panel">
+          <header>
+            <h2>Crear/Editar Preparaciones</h2>
+          </header>
+          <div th:each="p : ${preparaciones}">
+            <form th:action="@{/editar-borrar-preparacion}" method="post">
+              <input type="hidden" name="usuario" th:value="${usuario.codigo}" />
+              <div>
+                <input type="hidden" name="id" th:value="${p.id}" />
+                <div class="row">
+                  <div class="col-6 col-12-medium">
+                    <input type="text" name="descripcion" th:value="${p.descripcion}" placeholder="Descripción" required />
+                  </div>
+                  <div class="col-12-medium">
+                    <input type="submit" name="accion" value="Editar" />
+                  </div>
+                  <div class="col-12-medium">
+                    <input type="submit" name="accion" value="Borrar" />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div>
+            <form th:action="@{/nueva-preparacion}" method="post">
+              <input type="hidden" name="usuario" th:value="${usuario.codigo}" />
+              <div>
+                <div class="row">
+                  <div class="col-6 col-12-medium">
+                    <input type="text" name="descripcion" placeholder="Descripción" required />
+                  </div>
+                  <div class="col-3 col-12-medium">
+                    <input type="submit" name="accion" value="Nueva" />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </article>
+      </div>
+
+      <!-- Footer -->
+      <div id="footer">
+        <ul class="copyright">
+          <li>&copy; UTN-INSPT.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
+</html>
